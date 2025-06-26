@@ -1,10 +1,9 @@
-// client/src/pages/App.scss
+/* client/src/pages/App.scss */
 .home {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  position: relative; /* MODIFICADO: mudou de fixed para relative */
+  min-height: 100vh; /* MODIFICADO: usando min-height ao invés de height fixo */
+  min-height: 100dvh; /* MODIFICADO: usando dynamic viewport height para mobile */
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -12,6 +11,7 @@
   background: #01091c;
   overflow: hidden;
   padding: 40px 20px;
+  box-sizing: border-box; /* MODIFICADO: garante que o padding seja incluído no cálculo */
 }
 
 .splash-container {
@@ -21,11 +21,16 @@
   justify-content: center;
   flex-grow: 1;
   gap: 30px;
+  max-height: calc(
+    100vh - 200px
+  ); /* MODIFICADO: limita altura para não ultrapassar */
+  max-height: calc(100dvh - 200px); /* MODIFICADO: versão para mobile */
 }
 
 .splash-image {
   max-width: 80%;
   max-height: 50vh;
+  max-height: 50dvh; /* MODIFICADO: versão para mobile */
   object-fit: contain;
   filter: drop-shadow(0 10px 30px rgba(255, 255, 255, 0.1));
 }
@@ -51,6 +56,7 @@
   gap: 20px;
   align-items: center;
   margin-bottom: 20px;
+  flex-shrink: 0; /* MODIFICADO: impede que o menu seja comprimido */
 }
 
 .menu a {
@@ -87,16 +93,23 @@
 
 @media (max-width: 768px) {
   .home {
-    padding: 30px 15px;
+    padding: 20px 15px; /* MODIFICADO: reduzido padding para tablet */
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 
   .splash-container {
-    gap: 25px;
+    gap: 20px; /* MODIFICADO: reduzido gap */
+    max-height: calc(
+      100vh - 140px
+    ); /* MODIFICADO: ajustado para novo padding */
+    max-height: calc(100dvh - 140px);
   }
 
   .splash-image {
     max-width: 85%;
-    max-height: 45vh;
+    max-height: 40vh; /* MODIFICADO: reduzido para tablets */
+    max-height: 40dvh;
   }
 
   .splash-container h1 {
@@ -113,16 +126,23 @@
 
 @media (max-width: 480px) {
   .home {
-    padding: 20px 10px;
+    padding: 15px 10px; /* MODIFICADO: reduzido ainda mais para mobile */
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 
   .splash-container {
-    gap: 20px;
+    gap: 15px; /* MODIFICADO: reduzido gap */
+    max-height: calc(
+      100vh - 120px
+    ); /* MODIFICADO: ajustado para novo padding */
+    max-height: calc(100dvh - 120px);
   }
 
   .splash-image {
     max-width: 90%;
-    max-height: 40vh;
+    max-height: 35vh; /* MODIFICADO: reduzido para mobile */
+    max-height: 35dvh;
   }
 
   .splash-container h1 {
@@ -138,10 +158,27 @@
 
   .menu {
     gap: 15px;
+    margin-bottom: 10px; /* MODIFICADO: reduzido margin */
   }
 }
 
 @media (max-width: 360px) {
+  .home {
+    padding: 10px; /* MODIFICADO: padding mínimo para telas muito pequenas */
+  }
+
+  .splash-container {
+    max-height: calc(
+      100vh - 100px
+    ); /* MODIFICADO: ajustado para padding mínimo */
+    max-height: calc(100dvh - 100px);
+  }
+
+  .splash-image {
+    max-height: 30vh; /* MODIFICADO: ainda menor para telas pequenas */
+    max-height: 30dvh;
+  }
+
   .splash-container h1 {
     font-size: 1.8em;
   }
@@ -150,5 +187,31 @@
     min-width: 140px;
     padding: 10px 20px;
     font-size: 0.9em;
+  }
+}
+
+/* MODIFICADO: Nova media query para dispositivos com altura muito pequena */
+@media (max-height: 600px) {
+  .home {
+    padding: 10px;
+  }
+
+  .splash-container {
+    gap: 10px;
+    max-height: calc(100vh - 80px);
+    max-height: calc(100dvh - 80px);
+  }
+
+  .splash-image {
+    max-height: 25vh;
+    max-height: 25dvh;
+  }
+
+  .splash-container h1 {
+    font-size: 1.8em;
+  }
+
+  .menu {
+    margin-bottom: 5px;
   }
 }
