@@ -1,0 +1,35 @@
+// src/pages/App.scss
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #000;
+  color: #fff;
+}
+
+.home h1 {
+  font-size: 3em;
+  margin-bottom: 2em;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.menu button {
+  padding: 15px 30px;
+  font-size: 1.2em;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  min-width: 200px;
+}
+
+.menu button:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
