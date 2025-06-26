@@ -1,14 +1,19 @@
+// server/backend/server.js
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const path = require("path");
 
 dotenv.config();
 
 const app = express();
-app.use(cors());
+
+app.use(
+  cors({
+    origin: "http://localhost:3001",
+    credentials: true,
+  })
+);
 app.use(express.json());
-app.use("/static", express.static(path.join(__dirname, "../dist")));
 
 app.get("/api/signed-url", async (req, res) => {
   try {
@@ -34,17 +39,11 @@ app.get("/api/signed-url", async (req, res) => {
   }
 });
 
-//API route for getting Agent ID, used for public agents
 app.get("/api/getAgentId", (req, res) => {
   const agentId = process.env.AGENT_ID;
   res.json({
     agentId: `${agentId}`,
   });
-});
-
-// Serve index.html for all other routes
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../dist/index.html"));
 });
 
 const PORT = process.env.PORT || 3000;

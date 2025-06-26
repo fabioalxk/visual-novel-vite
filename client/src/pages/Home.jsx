@@ -1,4 +1,4 @@
-// src/pages/Home.jsx
+// client/src/pages/Home.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 import "./App.scss";
@@ -6,13 +6,13 @@ import "./App.scss";
 function Home() {
   return (
     <div className="home">
-      <h1>Visual Novel</h1>
+      <div className="splash-container">
+        <img src="/assets/splash.png" alt="Love Quest" className="splash-image" />
+        <h1>Love Quest</h1>
+      </div>
       <div className="menu">
         <Link to="/introduction">
           <button>Start</button>
-        </Link>
-        <Link to="/game">
-          <button>Continue</button>
         </Link>
       </div>
     </div>

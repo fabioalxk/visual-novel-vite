@@ -1,11 +1,11 @@
-// src/PageRoutes.jsx
+// client/src/PageRoutes.jsx
 import React from "react";
 import { HistoryRouter as Router } from "redux-first-history/rr6";
 import { history } from "./redux/store";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Introduction from "./pages/Introduction";
-import Game from "./pages/Game/Game";
+import Conversation from "./pages/Conversation";
 
 const PageRoutes = () => {
   return (
@@ -13,7 +13,7 @@ const PageRoutes = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/introduction" element={<Introduction />} />
-        <Route path="/game" element={<Game />} />
+        <Route path="/conversation" element={<Conversation />} />
       </Routes>
     </Router>
   );

@@ -1,4 +1,4 @@
-// src/pages/Introduction.jsx
+// client/src/pages/Introduction.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Introduction.scss";
@@ -7,11 +7,11 @@ function Introduction() {
     const navigate = useNavigate();
 
     const handleVideoEnd = () => {
-
+        navigate('/conversation');
     };
 
     const handleSkip = () => {
-
+        navigate('/conversation');
     };
 
     return (
@@ -23,6 +23,9 @@ function Introduction() {
                 onEnded={handleVideoEnd}
                 className="intro-video"
             />
+            <button onClick={handleSkip} className="skip-button">
+                Skip
+            </button>
         </div>
     );
 }

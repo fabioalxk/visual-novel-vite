@@ -1,35 +1,154 @@
-// src/pages/App.scss
+// client/src/pages/App.scss
 .home {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  height: 100vh;
-  background-color: #000;
-  color: #fff;
+  background: #01091c;
+  overflow: hidden;
+  padding: 40px 20px;
 }
 
-.home h1 {
-  font-size: 3em;
-  margin-bottom: 2em;
+.splash-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  gap: 30px;
+}
+
+.splash-image {
+  max-width: 80%;
+  max-height: 50vh;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 30px rgba(255, 255, 255, 0.1));
+}
+
+.splash-container h1 {
+  font-size: 3.5em;
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3),
+    0 0 40px rgba(255, 255, 255, 0.2);
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 3px;
+  margin: 0;
+  background: linear-gradient(45deg, #ffffff, #e0e0e0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .menu {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.menu a {
+  text-decoration: none;
 }
 
 .menu button {
-  padding: 15px 30px;
+  padding: 16px 35px;
   font-size: 1.2em;
-  background-color: rgba(255, 255, 255, 0.8);
+  font-weight: bold;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 50px;
   cursor: pointer;
   min-width: 200px;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+  backdrop-filter: blur(10px);
 }
 
 .menu button:hover {
-  background-color: rgba(255, 255, 255, 1);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
+  background: linear-gradient(135deg, #7c8ff0 0%, #8a5bb8 100%);
+}
+
+.menu button:active {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .home {
+    padding: 30px 15px;
+  }
+
+  .splash-container {
+    gap: 25px;
+  }
+
+  .splash-image {
+    max-width: 85%;
+    max-height: 45vh;
+  }
+
+  .splash-container h1 {
+    font-size: 2.8em;
+    letter-spacing: 2px;
+  }
+
+  .menu button {
+    min-width: 180px;
+    padding: 14px 30px;
+    font-size: 1.1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .home {
+    padding: 20px 10px;
+  }
+
+  .splash-container {
+    gap: 20px;
+  }
+
+  .splash-image {
+    max-width: 90%;
+    max-height: 40vh;
+  }
+
+  .splash-container h1 {
+    font-size: 2.2em;
+    letter-spacing: 1px;
+  }
+
+  .menu button {
+    min-width: 160px;
+    padding: 12px 25px;
+    font-size: 1em;
+  }
+
+  .menu {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 360px) {
+  .splash-container h1 {
+    font-size: 1.8em;
+  }
+
+  .menu button {
+    min-width: 140px;
+    padding: 10px 20px;
+    font-size: 0.9em;
+  }
 }
