@@ -7,13 +7,31 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3001",
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 app.get("/api/signed-url", async (req, res) => {
   try {
+    const { model } = req.query;
+    let agentId;
+
+    if (model === "amanda") {
+      agentId = process.env.AMANDA_AGENT_ID;
+    } else {
+      agentId = process.env.KAREN_AGENT_ID;
+    }
+
+    if (!agentId) {
+      throw new Error(`Agent ID not found for model: ${model}`);
+    }
+
     const response = await fetch(
-      `https://api.elevenlabs.io/v1/convai/conversation/get_signed_url?agent_id=${process.env.AGENT_ID}`,
+      `https://api.elevenlabs.io/v1/convai/conversation/get_signed_url?agent_id=${agentId}`,
       {
         method: "GET",
         headers: {
@@ -35,9 +53,17 @@ app.get("/api/signed-url", async (req, res) => {
 });
 
 app.get("/api/getAgentId", (req, res) => {
-  const agentId = process.env.AGENT_ID;
+  const { model } = req.query;
+  let agentId;
+
+  if (model === "amanda") {
+    agentId = process.env.AMANDA_AGENT_ID;
+  } else {
+    agentId = process.env.KAREN_AGENT_ID;
+  }
+
   res.json({
-    agentId: `${agentId}`,
+    agentId: agentId,
   });
 });
 

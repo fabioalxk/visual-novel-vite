@@ -11,7 +11,7 @@ function Home() {
         <h1>Love Quest</h1>
       </div>
       <div className="menu">
-        <Link to="/introduction">
+        <Link to="/select-model">
           <button>Start</button>
         </Link>
       </div>

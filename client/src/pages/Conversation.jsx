@@ -1,19 +1,25 @@
 // client/src/pages/Conversation.jsx
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import conversationService from "../services/conversationService";
 import "./Conversation.scss";
 
 function Conversation() {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const selectedModel = searchParams.get('model') || 'karen';
     const [isConnected, setIsConnected] = useState(false);
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
+    const getBackgroundImage = () => {
+        return selectedModel === 'amanda' ? '/assets/amanda1.png' : '/assets/karen1.png';
+    };
+
     const handleStartConversation = async () => {
         setIsLoading(true);
         try {
-            await conversationService.startConversation({
+            await conversationService.startConversation(selectedModel, {
                 onConnect: () => {
                     setIsConnected(true);
                     setIsLoading(false);
@@ -64,7 +70,10 @@ function Conversation() {
 
     return (
         <div className="conversation">
-            <div className="conversation-background" style={{ backgroundImage: 'url(/assets/karen1.png)' }} />
+            <div
+                className="conversation-background"
+                style={{ backgroundImage: `url(${getBackgroundImage()})` }}
+            />
 
             <div className="conversation-ui">
                 <button onClick={handleBackHome} className="back-button">

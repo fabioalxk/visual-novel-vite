@@ -1,5 +1,5 @@
-# backend/server.py
-from fastapi import FastAPI, HTTPException
+# server/backend/server.py
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -7,12 +7,10 @@ import httpx
 import os
 from dotenv import load_dotenv
 
-# Load environment variables
 load_dotenv()
 
 app = FastAPI()
 
-# CORS middleware configuration
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -21,10 +19,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# API routes should be defined before static file handling
 @app.get("/api/signed-url")
-async def get_signed_url():
-    agent_id = os.getenv("AGENT_ID")
+async def get_signed_url(model: str = Query("karen")):
+    if model == "amanda":
+        agent_id = os.getenv("AMANDA_AGENT_ID")
+    else:
+        agent_id = os.getenv("KAREN_AGENT_ID")
+    
     xi_api_key = os.getenv("XI_API_KEY")
     
     if not agent_id or not xi_api_key:
@@ -45,17 +46,17 @@ async def get_signed_url():
         except httpx.HTTPError:
             raise HTTPException(status_code=500, detail="Failed to get signed URL")
 
-
-#API route for getting Agent ID, used for public agents
 @app.get("/api/getAgentId")
-def get_unsigned_url():
-    agent_id = os.getenv("AGENT_ID")
+def get_unsigned_url(model: str = Query("karen")):
+    if model == "amanda":
+        agent_id = os.getenv("AMANDA_AGENT_ID")
+    else:
+        agent_id = os.getenv("KAREN_AGENT_ID")
+    
     return {"agentId": agent_id}
 
-# Mount static files for specific assets (CSS, JS, etc.)
 app.mount("/static", StaticFiles(directory="dist"), name="static")
 
-# Serve index.html for root path
 @app.get("/")
 async def serve_root():
     return FileResponse("dist/index.html")
