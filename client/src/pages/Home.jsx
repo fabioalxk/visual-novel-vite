@@ -7,7 +7,7 @@ function Home() {
   return (
     <div className="home">
       <div className="splash-container">
-        <img src="/assets/splash.png" alt="Love Quest" className="splash-image" />
+        <img src="/assets/splash.png" alt="" className="splash-image" />
         <h1>Love Quest</h1>
       </div>
       <div className="menu">

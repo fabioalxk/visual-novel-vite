@@ -5,25 +5,19 @@ import "./Introduction.scss";
 
 function Introduction() {
     const navigate = useNavigate();
-    const [searchParams] = useSearchParams();
-    const selectedModel = searchParams.get('model') || 'karen';
-
-    const getVideoSource = () => {
-        return selectedModel === 'amanda' ? '/assets/amanda1.mp4' : '/assets/karen1.mp4';
-    };
 
     const handleVideoEnd = () => {
-        navigate(`/conversation?model=${selectedModel}`);
+        navigate(`/conversation}`);
     };
 
     const handleSkip = () => {
-        navigate(`/conversation?model=${selectedModel}`);
+        navigate(`/conversation`);
     };
 
     return (
         <div className="introduction">
             <video
-                src={getVideoSource()}
+                src={"/assets/introduction.mp4"}
                 autoPlay
                 controls
                 onEnded={handleVideoEnd}

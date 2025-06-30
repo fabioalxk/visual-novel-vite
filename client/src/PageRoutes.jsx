@@ -4,7 +4,7 @@ import { HistoryRouter as Router } from "redux-first-history/rr6";
 import { history } from "./redux/store";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import ModelSelection from "./pages/ModelSelection";
+import Result from "./pages/Result";
 import Introduction from "./pages/Introduction";
 import Conversation from "./pages/Conversation";
 
@@ -13,8 +13,8 @@ const PageRoutes = () => {
     <Router history={history}>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/select-model" element={<ModelSelection />} />
         <Route path="/introduction" element={<Introduction />} />
+        <Route path="/result" element={<Result />} />
         <Route path="/conversation" element={<Conversation />} />
       </Routes>
     </Router>
