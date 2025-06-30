@@ -1,3 +1,4 @@
+// src/pages/Game/Game.scss
 * {
   margin: 0;
   padding: 0;
@@ -30,43 +31,52 @@ body,
   position: absolute;
 }
 
-.scene-text {
-  position: absolute;
-  top: 5%;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #fff;
-  font-size: 1.5em;
-  text-shadow: 2px 2px 4px #000;
-  text-align: center;
-  max-width: 80%;
-}
-
-.options {
-  position: absolute;
-  bottom: 10%;
+/* MODIFICADO: Adicionado navegação com setas no topo */
+.navigation-arrows {
+  position: fixed;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  flex-direction: column;
-  gap: 15px;
   align-items: center;
+  gap: 20px;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 10px 20px;
+  border-radius: 25px;
 }
 
-.options button {
-  background-color: rgba(255, 255, 255, 0.8);
+.nav-arrow {
+  background-color: rgba(255, 255, 255, 0.9);
   border: none;
-  padding: 12px 20px;
-  font-size: 1em;
+  padding: 10px 15px;
+  font-size: 1.5em;
   cursor: pointer;
-  border-radius: 5px;
-  width: 250px;
-  max-width: 80%;
-  text-align: center;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
 }
 
-.options button:hover {
+.nav-arrow:hover:not(:disabled) {
   background-color: rgba(255, 255, 255, 1);
+  transform: scale(1.1);
+}
+
+.nav-arrow:disabled {
+  background-color: rgba(255, 255, 255, 0.3);
+  cursor: not-allowed;
+  color: #666;
+}
+
+.scene-counter {
+  color: white;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px #000;
 }
 
 .toggle-debug-btn {
