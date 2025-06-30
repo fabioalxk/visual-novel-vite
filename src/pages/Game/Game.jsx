@@ -11,7 +11,6 @@ function Game() {
   const [dialogueIndex, setDialogueIndex] = useState(0);
   const [debug, setDebug] = useState(false);
 
-  /* MODIFICADO: Navegação agora prioriza diálogos antes de mudar de cena */
   const goNext = () => {
     const currentScene = scenes[currentIndex];
     const hasDialogues = currentScene.dialogues && currentScene.dialogues.length > 0;
@@ -24,13 +23,14 @@ function Game() {
     }
   };
 
-  /* MODIFICADO: Navegação reversa também prioriza diálogos */
+  /* MODIFICADO: Corrigida lógica para calcular corretamente a cena anterior */
   const goPrevious = () => {
     if (dialogueIndex > 0) {
       setDialogueIndex(dialogueIndex - 1);
     } else if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-      const previousScene = scenes[currentIndex - 1];
+      const newIndex = currentIndex - 1;
+      setCurrentIndex(newIndex);
+      const previousScene = scenes[newIndex];
       const previousDialogues = previousScene.dialogues || [];
       setDialogueIndex(Math.max(0, previousDialogues.length - 1));
     }
@@ -50,7 +50,10 @@ function Game() {
     <div className="game" onClick={handleNextDialogue}>
       <div className="navigation-arrows">
         <button
-          onClick={goPrevious}
+          onClick={(e) => {
+            e.stopPropagation();
+            goPrevious();
+          }}
           disabled={currentIndex === 0 && dialogueIndex === 0}
           className="nav-arrow left"
         >
@@ -60,7 +63,10 @@ function Game() {
           {currentIndex + 1} / {scenes.length}
         </span>
         <button
-          onClick={goNext}
+          onClick={(e) => {
+            e.stopPropagation();
+            goNext();
+          }}
           disabled={currentIndex === scenes.length - 1 &&
             (!currentScene.dialogues || dialogueIndex >= currentScene.dialogues.length - 1)}
           className="nav-arrow right"
@@ -85,7 +91,6 @@ const Scene = ({ currentScene, dialogueIndex, handleChoice }) => {
   const currentDialogue = hasDialogues ? currentScene.dialogues[dialogueIndex] : null;
   const showOptions = hasDialogues && dialogueIndex === currentScene.dialogues.length - 1 && currentScene.options.length > 0;
 
-  /* MODIFICADO: Detecta se é vídeo ou imagem */
   const isVideo = currentScene.media.endsWith('.mp4');
 
   return (
