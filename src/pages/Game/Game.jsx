@@ -3,6 +3,8 @@ import React, { useState, useRef, useEffect } from "react";
 import scenes from "./scenes";
 import DebugPanel from "../../components/DebugPanel";
 import KeyBindings from "../../components/KeyBindings";
+import Chat from "../../components/Chat/Chat";
+import { CHAT_SCENE_ID, SUCCESS_SCENE_ID, FAILURE_SCENE_ID } from "../../utils/constants";
 import "./Game.scss";
 import "./debug.scss";
 
@@ -74,10 +76,28 @@ function Game({ playerName }) {
     /* MODIFICADO: Mantido para compatibilidade futura com escolhas */
   };
 
+  /* MODIFICADO: Função para mudança de cena via chat com Gemini */
+  const handleChatSceneChange = (outcome) => {
+    if (outcome === 'success') {
+      setCurrentIndex(SUCCESS_SCENE_ID - 1);
+    } else if (outcome === 'failure') {
+      setCurrentIndex(FAILURE_SCENE_ID - 1);
+    }
+    setDialogueIndex(0);
+  };
+
   const currentScene = scenes[currentIndex];
+  const hasDialogues = currentScene.dialogues && currentScene.dialogues.length > 0;
+  const isLastDialogue = !hasDialogues || dialogueIndex >= currentScene.dialogues.length - 1;
+
+  /* MODIFICADO: Desabilita clique na tela quando for cena de chat ou ainda tem diálogos */
+  const shouldDisableScreenClick = currentScene.isChat || !isLastDialogue;
 
   return (
-    <div className="game" onClick={handleNextDialogue}>
+    <div
+      className={`game ${shouldDisableScreenClick ? 'chat-active' : ''}`}
+      onClick={shouldDisableScreenClick ? undefined : handleNextDialogue}
+    >
       <div className="navigation-arrows">
         <button
           onClick={(e) => {
@@ -97,8 +117,11 @@ function Game({ playerName }) {
             e.stopPropagation();
             goNext();
           }}
-          disabled={currentIndex === scenes.length - 1 &&
-            (!currentScene.dialogues || dialogueIndex >= currentScene.dialogues.length - 1)}
+          disabled={
+            currentScene.isChat ||
+            (currentIndex === scenes.length - 1 &&
+              (!currentScene.dialogues || dialogueIndex >= currentScene.dialogues.length - 1))
+          }
           className="nav-arrow right"
         >
           →
@@ -111,7 +134,11 @@ function Game({ playerName }) {
         handleChoice={handleChoice}
       />
 
-      <KeyBindings goBack={goPrevious} goForward={goNext} />
+      {/* MODIFICADO: Chat ativo apenas na cena marcada como isChat */}
+      {currentScene.isChat && <Chat onSceneChange={handleChatSceneChange} />}
+
+      {/* MODIFICADO: KeyBindings desabilitados durante chat */}
+      {!currentScene.isChat && <KeyBindings goBack={goPrevious} goForward={goNext} />}
     </div>
   );
 }

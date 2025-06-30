@@ -139,6 +139,30 @@ const scenes = [
       { character: "Você", text: "Kate! Não faça isso!" },
     ],
     options: [],
+    /* MODIFICADO: Marcação para ativar chat com Gemini */
+    isChat: true
+  },
+  {
+    id: 14,
+    media: "/assets/imagens/sucesso.png",
+    music: "/assets/musicas/esperanca.mp3",
+    dialogues: [
+      { character: "Kate", text: "Obrigada... você me fez lembrar que ainda há esperança..." },
+      { character: "Kate", text: "Talvez... talvez eu consiga superar isso..." },
+      { character: "Narrador", text: "Kate foi salva. Sua vida vale a pena." }
+    ],
+    options: [],
+  },
+  {
+    id: 15,
+    media: "/assets/imagens/falha.png",
+    music: "/assets/musicas/tristeza.mp3",
+    dialogues: [
+      { character: "Narrador", text: "Às vezes, as palavras não são suficientes..." },
+      { character: "Narrador", text: "Kate não conseguiu encontrar esperança desta vez." },
+      { character: "Narrador", text: "Toda vida importa. Se você ou alguém que conhece está passando por isso, procure ajuda." }
+    ],
+    options: [],
   }
 ];
 
