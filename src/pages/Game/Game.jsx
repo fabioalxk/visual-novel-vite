@@ -6,14 +6,13 @@ import KeyBindings from "../../components/KeyBindings";
 import "./Game.scss";
 import "./debug.scss";
 
-function Game() {
+function Game({ playerName }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [dialogueIndex, setDialogueIndex] = useState(0);
   const [debug, setDebug] = useState(false);
   const audioRef = useRef(null);
   const currentMusicRef = useRef(null);
 
-  /* MODIFICADO: Sistema de controle de música de fundo */
   useEffect(() => {
     const currentScene = scenes[currentIndex];
     const newMusic = currentScene.music;
@@ -34,7 +33,6 @@ function Game() {
     }
   }, [currentIndex]);
 
-  /* MODIFICADO: Cleanup do áudio ao desmontar componente */
   useEffect(() => {
     return () => {
       if (audioRef.current) {
@@ -56,7 +54,6 @@ function Game() {
     }
   };
 
-  /* MODIFICADO: Corrigida lógica para calcular corretamente a cena anterior */
   const goPrevious = () => {
     if (dialogueIndex > 0) {
       setDialogueIndex(dialogueIndex - 1);

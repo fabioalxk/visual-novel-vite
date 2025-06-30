@@ -1,12 +1,24 @@
-// src/pages/Home.js
-import React from "react";
+// src/pages/Home.jsx
+import React, { useState } from "react";
+import Start from "./Start/Start";
 import Game from "./Game/Game";
 
 function Home() {
-  console.log("home");
+  const [gameStarted, setGameStarted] = useState(false);
+  const [playerName, setPlayerName] = useState("");
+
+  const handleStartGame = (name) => {
+    setPlayerName(name);
+    setGameStarted(true);
+  };
+
   return (
     <>
-      <Game />
+      {!gameStarted ? (
+        <Start onStart={handleStartGame} />
+      ) : (
+        <Game playerName={playerName} />
+      )}
     </>
   );
 }

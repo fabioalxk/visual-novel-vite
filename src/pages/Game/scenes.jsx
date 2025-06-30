@@ -103,8 +103,7 @@ const scenes = [
     media: "/assets/imagens/kateVeMensagensMaldosasComBatomNoEspelho.png",
     music: "/assets/musicas/gotWellSoon.mp3",
     dialogues: [
-      { character: "Kate", text: "'SLUTS GO TO HELL'... escrito no meu espelho..." },
-      { character: "Kate", text: "Eles invadiram meu quarto... meu santuário..." },
+      { character: "Kate", text: "'VOCÊ NÃO VALE NADA, KATE'... escrito no meu espelho da escola..." },
       { character: "Kate", text: "Não há lugar seguro para mim..." }
     ],
     options: [],
@@ -136,11 +135,8 @@ const scenes = [
     media: "/assets/videos/kateEmCimaNoPredioComHomemTentandoConvencerElaASairDali.mp4",
     music: "/assets/musicas/chuva.mp3",
     dialogues: [
-      { character: "Max", text: "Kate! Não faça isso!" },
-      { character: "Kate", text: "Max? Como você...?" },
-      { character: "Max", text: "Você é importante, Kate. Sua vida importa!" },
       { character: "Kate", text: "Não... eu sou um erro... uma decepção..." },
-      { character: "Max", text: "Isso não é verdade. Você é gentil, talentosa, amada!" }
+      { character: "Você", text: "Kate! Não faça isso!" },
     ],
     options: [],
   }
