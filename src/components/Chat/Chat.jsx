@@ -1,4 +1,4 @@
-// src/components/Chat.jsx
+// src/components/Chat/Chat.jsx
 import React, { useState, useEffect, useRef } from 'react';
 import geminiService from '../../services/geminiService';
 import { MIN_MESSAGES_BEFORE_DECISION } from '../../utils/constants';
@@ -56,11 +56,11 @@ const Chat = ({ onSceneChange }) => {
             setMessages(prev => [...prev, kateMessage]);
             setMessageCount(geminiService.getMessageCount());
 
-            /* MODIFICADO: Verifica se houve mudança de cena via function calling */
+            /* MODIFICADO: Passa resultado completo incluindo score e reason */
             if (response.sceneChange) {
-                console.log(`Kate decidiu: ${response.sceneChange} - Motivo: ${response.reason}`);
+                console.log(`Kate decidiu: ${response.sceneChange} - Score: ${response.score} - Motivo: ${response.reason}`);
                 setTimeout(() => {
-                    onSceneChange(response.sceneChange);
+                    onSceneChange(response);
                 }, 3000);
             }
         } catch (error) {

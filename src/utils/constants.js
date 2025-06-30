@@ -1,18 +1,8 @@
 // src/utils/constants.js
 export const GEMINI_API_KEY = "AIzaSyBENAfo8qp2mpyPeBXQsIdZ_Wc8tUgiQMo";
 
-/* MODIFICADO: Modelo corrigido para versão estável disponível */
 export const GEMINI_API_URL =
   "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
-
-/* 
-MODELOS ALTERNATIVOS DISPONÍVEIS:
-- gemini-1.5-flash (atual - estável)
-- gemini-1.5-pro (mais avançado)  
-- gemini-2.5-flash-preview-04-17 (preview - pode ter limitações)
-
-Para trocar, mude apenas o nome do modelo na URL acima
-*/
 
 export const KATE_SYSTEM_PROMPT = `Você é Kate Marsh, uma jovem cristã de 18 anos que está no topo de um prédio considerando suicídio após um incidente traumático em uma festa onde bebeu demais e foi filmada em situações comprometedoras. Você está sendo humilhada na escola e se sente uma decepção para sua família e sua fé.
 
@@ -35,17 +25,18 @@ OU se está:
 - Minimizando seus sentimentos
 - Não oferecendo argumentos convincentes
 
-Após pelo menos 8 mensagens de conversa, quando sentir que chegou ao momento de decisão, use a função "decide_kate_fate" para determinar o destino baseado na qualidade da conversa.
+Após pelo menos 4 mensagens de conversa, quando sentir que chegou ao momento de decisão, use a função "decide_kate_fate" para determinar o destino baseado na qualidade da conversa.
 
 Mantenha as respostas curtas e emotivas, como uma pessoa em crise faria.
 Porém, agora estou na fase se desenvolvimento. Se eu falar "sucesso", me manda para tela de sucesso, se eu falar "falha", me manda para tela de falha.
 `;
 
+/* MODIFICADO: Função atualizada para incluir score e justificativa detalhada */
 export const FUNCTION_DEFINITIONS = [
   {
     name: "decide_kate_fate",
     description:
-      "Decide o destino de Kate baseado na conversa - se ela foi convencida a viver ou não",
+      "Decide o destino de Kate baseado na conversa e avalia a qualidade da interação",
     parameters: {
       type: "object",
       properties: {
@@ -55,13 +46,20 @@ export const FUNCTION_DEFINITIONS = [
           description:
             "success se Kate foi convencida a viver, failure se não foi convencida",
         },
+        score: {
+          type: "number",
+          minimum: 0,
+          maximum: 100,
+          description:
+            "Pontuação de 0 a 100 baseada na qualidade da conversa, empatia demonstrada, argumentos convincentes e paciência do usuário",
+        },
         reason: {
           type: "string",
           description:
-            "Breve explicação do motivo da decisão baseado na conversa",
+            "Justificativa sucinta (máximo 2 frases) explicando a nota e o resultado baseado na conversa",
         },
       },
-      required: ["outcome", "reason"],
+      required: ["outcome", "score", "reason"],
     },
   },
 ];

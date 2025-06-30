@@ -80,6 +80,7 @@ class GeminiService {
 
         if (functionCall.name === "decide_kate_fate") {
           const outcome = functionCall.args.outcome;
+          const score = functionCall.args.score;
           const reason = functionCall.args.reason;
 
           const finalMessage =
@@ -95,6 +96,7 @@ class GeminiService {
           return {
             message: finalMessage,
             sceneChange: outcome,
+            score: score,
             reason: reason,
           };
         }

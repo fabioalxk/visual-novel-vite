@@ -1,0 +1,137 @@
+/* src/components/ResultScreen/ResultScreen.scss */
+.result-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.result-content {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 60px 40px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  max-width: 500px;
+  width: 90%;
+}
+
+.result-title {
+  font-size: 2.5em;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+
+  &.success {
+    color: #27ae60;
+  }
+
+  &.failure {
+    color: #e74c3c;
+  }
+}
+
+.score-container {
+  margin: 40px 0;
+}
+
+.score-circle {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 6px solid;
+  position: relative;
+
+  &.success {
+    border-color: #27ae60;
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+  }
+
+  &.failure {
+    border-color: #e74c3c;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+  }
+}
+
+.score-number {
+  font-size: 2.2em;
+  font-weight: bold;
+  color: white;
+  line-height: 1;
+}
+
+.score-label {
+  font-size: 0.9em;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: -5px;
+}
+
+.evaluation {
+  margin: 40px 0;
+}
+
+.evaluation h3 {
+  color: #2c3e50;
+  font-size: 1.5em;
+  margin-bottom: 15px;
+}
+
+.reason {
+  color: #34495e;
+  font-size: 1.1em;
+  line-height: 1.5;
+  font-style: italic;
+  padding: 20px;
+  background: rgba(236, 240, 241, 0.8);
+  border-radius: 10px;
+  border-left: 4px solid #3498db;
+}
+
+.restart-button {
+  padding: 15px 30px;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+
+.restart-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(52, 152, 219, 0.3);
+}
+
+@media (max-width: 480px) {
+  .result-content {
+    padding: 40px 30px;
+    margin: 20px;
+  }
+
+  .result-title {
+    font-size: 2em;
+  }
+
+  .score-circle {
+    width: 100px;
+    height: 100px;
+  }
+
+  .score-number {
+    font-size: 1.8em;
+  }
+}

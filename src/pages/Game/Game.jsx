@@ -4,7 +4,8 @@ import scenes from "./scenes";
 import DebugPanel from "../../components/DebugPanel";
 import KeyBindings from "../../components/KeyBindings";
 import Chat from "../../components/Chat/Chat";
-import { CHAT_SCENE_ID, SUCCESS_SCENE_ID, FAILURE_SCENE_ID } from "../../utils/constants";
+import ResultScreen from "../../components/ResultScreen/ResultScreen";
+import { CHAT_SCENE_ID } from "../../utils/constants";
 import "./Game.scss";
 import "./debug.scss";
 
@@ -12,6 +13,8 @@ function Game({ playerName }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [dialogueIndex, setDialogueIndex] = useState(0);
   const [debug, setDebug] = useState(false);
+  const [showResult, setShowResult] = useState(false);
+  const [chatResult, setChatResult] = useState(null);
   const audioRef = useRef(null);
   const currentMusicRef = useRef(null);
 
@@ -73,24 +76,38 @@ function Game({ playerName }) {
   };
 
   const handleChoice = (option) => {
-    /* MODIFICADO: Mantido para compatibilidade futura com escolhas */
+
   };
 
-  /* MODIFICADO: Função para mudança de cena via chat com Gemini */
-  const handleChatSceneChange = (outcome) => {
-    if (outcome === 'success') {
-      setCurrentIndex(SUCCESS_SCENE_ID - 1);
-    } else if (outcome === 'failure') {
-      setCurrentIndex(FAILURE_SCENE_ID - 1);
-    }
+  const handleChatSceneChange = (result) => {
+    setChatResult({
+      outcome: result.sceneChange,
+      score: result.score,
+      reason: result.reason
+    });
+    setShowResult(true);
+  };
+
+  const handleRestart = () => {
+    setShowResult(false);
+    setChatResult(null);
+    setCurrentIndex(0);
     setDialogueIndex(0);
   };
+
+  if (showResult && chatResult) {
+    return (
+      <ResultScreen
+        result={chatResult}
+        onRestart={handleRestart}
+      />
+    );
+  }
 
   const currentScene = scenes[currentIndex];
   const hasDialogues = currentScene.dialogues && currentScene.dialogues.length > 0;
   const isLastDialogue = !hasDialogues || dialogueIndex >= currentScene.dialogues.length - 1;
 
-  /* MODIFICADO: Desabilita clique na tela quando for cena de chat ou ainda tem diálogos */
   const shouldDisableScreenClick = currentScene.isChat || !isLastDialogue;
 
   return (
@@ -134,10 +151,8 @@ function Game({ playerName }) {
         handleChoice={handleChoice}
       />
 
-      {/* MODIFICADO: Chat ativo apenas na cena marcada como isChat */}
       {currentScene.isChat && <Chat onSceneChange={handleChatSceneChange} />}
 
-      {/* MODIFICADO: KeyBindings desabilitados durante chat */}
       {!currentScene.isChat && <KeyBindings goBack={goPrevious} goForward={goNext} />}
     </div>
   );
