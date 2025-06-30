@@ -12,7 +12,7 @@ const scenes = [
   },
   {
     id: 2,
-    media: "/assets/imagens/bebidaBaladaTudoGirando.png",
+    media: "/assets/videos/bebidaBaladaTudoGirando.mp4",
     dialogues: [
       { character: "Kate", text: "Nossa... tudo está girando..." },
       { character: "Kate", text: "Que sensação estranha... mas... liberadora?" },
@@ -22,7 +22,7 @@ const scenes = [
   },
   {
     id: 3,
-    media: "/assets/imagens/kateDance1.png",
+    media: "/assets/videos/kateDance1.mp4",
     dialogues: [
       { character: "Kate", text: "Eu posso dançar! Eu consigo!" },
       { character: "Kate", text: "Por que sempre fui tão tímida?" },
@@ -60,7 +60,7 @@ const scenes = [
   },
   {
     id: 7,
-    media: "/assets/imagens/KateVendoVideoQuePessoasGravaramDelaNaBalada.png",
+    media: "/assets/videos/KateVendoVideoQuePessoasGravaramDelaNaBalada.mp4",
     dialogues: [
       { character: "Kate", text: "Não... isso não pode ser real..." },
       { character: "Kate", text: "Eles... eles gravaram tudo?" },
@@ -121,7 +121,7 @@ const scenes = [
   },
   {
     id: 13,
-    media: "/assets/imagens/kateEmCimaNoPredioComHomemTentandoConvencerElaASairDali.png",
+    media: "/assets/videos/kateEmCimaNoPredioComHomemTentandoConvencerElaASairDali.mp4",
     dialogues: [
       { character: "Max", text: "Kate! Não faça isso!" },
       { character: "Kate", text: "Max? Como você...?" },
