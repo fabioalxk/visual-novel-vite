@@ -1,5 +1,5 @@
 // src/pages/Game/Game.jsx
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import scenes from "./scenes";
 import DebugPanel from "../../components/DebugPanel";
 import KeyBindings from "../../components/KeyBindings";
@@ -10,6 +10,39 @@ function Game() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [dialogueIndex, setDialogueIndex] = useState(0);
   const [debug, setDebug] = useState(false);
+  const audioRef = useRef(null);
+  const currentMusicRef = useRef(null);
+
+  /* MODIFICADO: Sistema de controle de música de fundo */
+  useEffect(() => {
+    const currentScene = scenes[currentIndex];
+    const newMusic = currentScene.music;
+
+    if (newMusic && newMusic !== currentMusicRef.current) {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+
+      const audio = new Audio(newMusic);
+      audio.loop = true;
+      audio.volume = 0.3;
+      audio.play().catch(console.error);
+
+      audioRef.current = audio;
+      currentMusicRef.current = newMusic;
+    }
+  }, [currentIndex]);
+
+  /* MODIFICADO: Cleanup do áudio ao desmontar componente */
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
 
   const goNext = () => {
     const currentScene = scenes[currentIndex];
