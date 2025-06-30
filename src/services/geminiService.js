@@ -49,11 +49,9 @@ class GeminiService {
           temperature: 0.7,
           topK: 40,
           topP: 0.95,
-          maxOutputTokens: 300,
         },
       };
 
-      /* MODIFICADO: Adiciona function calling apenas após número mínimo de mensagens */
       if (this.userMessageCount >= MIN_MESSAGES_BEFORE_DECISION) {
         requestBody.tools = [
           {
@@ -77,7 +75,6 @@ class GeminiService {
       const data = await response.json();
       const candidate = data.candidates[0];
 
-      /* MODIFICADO: Verifica se Gemini chamou uma função */
       if (candidate.content.parts[0].functionCall) {
         const functionCall = candidate.content.parts[0].functionCall;
 
@@ -103,7 +100,6 @@ class GeminiService {
         }
       }
 
-      /* MODIFICADO: Resposta normal de conversa */
       const reply = candidate.content.parts[0].text;
 
       this.conversationHistory.push({

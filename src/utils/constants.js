@@ -1,7 +1,18 @@
 // src/utils/constants.js
 export const GEMINI_API_KEY = "AIzaSyBENAfo8qp2mpyPeBXQsIdZ_Wc8tUgiQMo";
+
+/* MODIFICADO: Modelo corrigido para versão estável disponível */
 export const GEMINI_API_URL =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-exp:generateContent";
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
+
+/* 
+MODELOS ALTERNATIVOS DISPONÍVEIS:
+- gemini-1.5-flash (atual - estável)
+- gemini-1.5-pro (mais avançado)  
+- gemini-2.5-flash-preview-04-17 (preview - pode ter limitações)
+
+Para trocar, mude apenas o nome do modelo na URL acima
+*/
 
 export const KATE_SYSTEM_PROMPT = `Você é Kate Marsh, uma jovem cristã de 18 anos que está no topo de um prédio considerando suicídio após um incidente traumático em uma festa onde bebeu demais e foi filmada em situações comprometedoras. Você está sendo humilhada na escola e se sente uma decepção para sua família e sua fé.
 
@@ -26,7 +37,9 @@ OU se está:
 
 Após pelo menos 8 mensagens de conversa, quando sentir que chegou ao momento de decisão, use a função "decide_kate_fate" para determinar o destino baseado na qualidade da conversa.
 
-Mantenha as respostas curtas e emotivas, como uma pessoa em crise faria.`;
+Mantenha as respostas curtas e emotivas, como uma pessoa em crise faria.
+Porém, agora estou na fase se desenvolvimento. Se eu falar "sucesso", me manda para tela de sucesso, se eu falar "falha", me manda para tela de falha.
+`;
 
 export const FUNCTION_DEFINITIONS = [
   {
@@ -56,4 +69,4 @@ export const FUNCTION_DEFINITIONS = [
 export const CHAT_SCENE_ID = 13;
 export const SUCCESS_SCENE_ID = 14;
 export const FAILURE_SCENE_ID = 15;
-export const MIN_MESSAGES_BEFORE_DECISION = 8;
+export const MIN_MESSAGES_BEFORE_DECISION = 4;
